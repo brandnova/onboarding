@@ -2,7 +2,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Rocket, Star, ChevronDown, Layout, Database, Globe, Zap } from 'lucide-react'
-import landingPageData from '../data/landingPageData.json'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -26,9 +25,12 @@ const itemVariants = {
   }
 }
 
-const iconComponents = {
-  Rocket, Star, Layout, Database, Globe, Zap
-}
+const techStack = [
+  { name: 'HTML & CSS', icon: Layout, color: 'text-orange-500' },
+  { name: 'JavaScript', icon: Zap, color: 'text-yellow-500' },
+  { name: 'React', icon: Globe, color: 'text-blue-500' },
+  { name: 'Backend', icon: Database, color: 'text-green-500' }
+]
 
 export default function LandingPage({ onStart }) {
   return (
@@ -52,14 +54,14 @@ export default function LandingPage({ onStart }) {
         variants={itemVariants}
         className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-transparent bg-clip-text animate-gradient bg-size-200"
       >
-        {landingPageData.heroSection.title}
+        Begin Your Web Dev Journey
       </motion.h1>
 
       <motion.p 
         variants={itemVariants}
         className="text-xl md:text-2xl mb-12 text-gray-600 dark:text-gray-300"
       >
-        {landingPageData.heroSection.description}
+        Transform your future through the power of code. Join thousands of successful developers who started right here.
       </motion.p>
 
       {/* Tech Stack Section */}
@@ -67,13 +69,13 @@ export default function LandingPage({ onStart }) {
         variants={itemVariants}
         className="flex justify-center gap-8 mb-12 flex-wrap"
       >
-        {landingPageData.techStack.map((tech, index) => (
+        {techStack.map((tech, index) => (
           <motion.div
             key={index}
             whileHover={{ scale: 1.1 }}
             className="flex flex-col items-center"
           >
-            {React.createElement(iconComponents[tech.icon], {
+            {React.createElement(tech.icon, {
               className: `w-8 h-8 ${tech.color} mb-2`
             })}
             <span className="text-sm font-medium">{tech.name}</span>
@@ -85,7 +87,26 @@ export default function LandingPage({ onStart }) {
         variants={containerVariants}
         className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
       >
-        {landingPageData.features.map((item, index) => (
+        {[
+          {
+            icon: Rocket,
+            title: "Master Web Dev",
+            description: "Learn modern web development from the ground up",
+            gradient: "from-blue-500 to-blue-600"
+          },
+          {
+            icon: Layout,
+            title: "Build & Deploy",
+            description: "Create and launch real-world projects",
+            gradient: "from-purple-500 to-purple-600"
+          },
+          {
+            icon: Star,
+            title: "Achieve More",
+            description: "Launch your career in tech",
+            gradient: "from-pink-500 to-pink-600"
+          }
+        ].map((item, index) => (
           <motion.div
             key={index}
             variants={itemVariants}
@@ -96,21 +117,26 @@ export default function LandingPage({ onStart }) {
             }}
             className="bg-white bg-opacity-25 dark:bg-gray-800 dark:bg-opacity-50 p-8 rounded-2xl shadow-xl relative overflow-hidden group backdrop-blur-lg"
           >
+            {/* Optional gradient overlay for extra style */}
             <div
               className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
-            {React.createElement(iconComponents[item.icon], {
+            {/* Icon */}
+            {React.createElement(item.icon, {
               className: `w-12 h-12 mb-4 mx-auto text-transparent bg-gradient-to-r ${item.gradient} bg-clip-text`
             })}
             
+            {/* Title */}
             <h3 className="text-base dark:text-gray-100 text-xl font-semibold mb-2">
               {item.title}
             </h3>
             
+            {/* Description */}
             <p className="text-base dark:text-gray-300">{item.description}</p>
           </motion.div>
+
         ))}
       </motion.div>
 
@@ -124,7 +150,7 @@ export default function LandingPage({ onStart }) {
           onClick={onStart}
           className="group relative px-8 py-4 overflow-hidden rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl mb-8"
         >
-          <span className="relative z-10">{landingPageData.ctaButton.text}</span>
+          <span className="relative z-10">Start Your Journey</span>
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </motion.button>
 
@@ -146,7 +172,12 @@ export default function LandingPage({ onStart }) {
           variants={containerVariants}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
         >
-          {landingPageData.stats.map((stat, index) => (
+          {[
+            { label: "Active Students", value: "2,000+" },
+            { label: "Course Hours", value: "100+" },
+            { label: "Success Rate", value: "95%" },
+            { label: "Projects Built", value: "1,000+" }
+          ].map((stat, index) => (
             <motion.div
               key={index}
               variants={itemVariants}

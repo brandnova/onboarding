@@ -1,8 +1,19 @@
 // src/components/Step4Motivation.jsx
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Quote } from 'lucide-react'
-import motivationData from '../data/motivationData.json'
+
+const motivationalFacts = [
+  "Every coder started as a beginner.",
+  "Coding isn't magic; it's a skill you can learn.",
+  "The best way to predict the future is to create it.",
+  "Your coding journey is unique. Embrace it!",
+  "Small steps every day lead to big achievements.",
+  "Debugging is like being the detective in a crime movie where you're also the murderer.",
+  "The only way to learn a new programming language is by writing programs in it.",
+  "Don't worry if it doesn't work right. If everything did, you'd be out of a job.",
+  "Code is like humor. When you have to explain it, it's bad."
+]
 
 function FlipCard({ fact }) {
   const [isFlipped, setIsFlipped] = useState(false)
@@ -11,25 +22,36 @@ function FlipCard({ fact }) {
 
   return (
     <motion.div
-      className="flip-card cursor-pointer w-full h-48"
+      className="flip-card cursor-pointer w-full h-48 relative"
       onClick={handleFlip}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
-      <motion.div
-        className="flip-card-inner w-full h-full"
-        initial={false}
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-        style={{ transformStyle: "preserve-3d" }}
-      >
-        <div className="flip-card-front absolute w-full h-full bg-blue-100 dark:bg-blue-900 rounded-lg shadow-lg flex items-center justify-center p-4">
-          <Quote className="w-12 h-12 text-blue-500" />
-        </div>
-        <div className="flip-card-back absolute w-full h-full bg-blue-600 dark:bg-blue-800 rounded-lg shadow-lg flex items-center justify-center p-4 [transform:rotateY(180deg)]">
-          <p className="text-lg font-semibold text-white text-center">{fact}</p>
-        </div>
-      </motion.div>
+      <AnimatePresence initial={false} mode="wait">
+        {!isFlipped ? (
+          <motion.div
+            key="front"
+            className="absolute inset-0 bg-blue-100 dark:bg-blue-900 rounded-lg shadow-lg flex items-center justify-center p-4"
+            initial={{ rotateY: 180 }}
+            animate={{ rotateY: 0 }}
+            exit={{ rotateY: 180 }}
+            transition={{ duration: 0.4 }}
+          >
+            <Quote className="w-12 h-12 text-blue-500" />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="back"
+            className="absolute inset-0 bg-blue-600 dark:bg-blue-800 rounded-lg shadow-lg flex items-center justify-center p-4"
+            initial={{ rotateY: 180 }}
+            animate={{ rotateY: 0 }}
+            exit={{ rotateY: 180 }}
+            transition={{ duration: 0.4 }}
+          >
+            <p className="text-lg font-semibold text-white text-center">{fact}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   )
 }
@@ -49,7 +71,7 @@ export default function Step4Motivation({ onNext, onPrev }) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
       >
-        {motivationData.title}
+        Motivational Insights
       </motion.h2>
       <motion.p 
         className="text-xl mb-12 text-gray-600 dark:text-gray-300"
@@ -57,10 +79,10 @@ export default function Step4Motivation({ onNext, onPrev }) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.5 }}
       >
-        {motivationData.description}
+        Click on the cards to reveal inspiring words of wisdom for your coding journey:
       </motion.p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {motivationData.motivationalFacts.map((fact, index) => (
+        {motivationalFacts.map((fact, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, scale: 0.8 }}

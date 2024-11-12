@@ -111,7 +111,7 @@ export default function App() {
           <div className="flex justify-between items-center h-16">
             {/* Logo and Title */}
             <div className="flex items-center space-x-3">
-              <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
+              <img src="/vite.svg" alt="Vite logo" className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
               <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
                 Web Dev Journey
               </h1>
