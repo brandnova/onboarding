@@ -2,59 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Code, Layout, Database, Palette, Terminal, Globe, CheckCircle, ChevronDown } from 'lucide-react';
+import roadmapData from '../data/roadmapData.json';
 
-const roadmapSteps = [
-  {
-    icon: Layout,
-    title: "Frontend Fundamentals",
-    description: "Master HTML, CSS, and JavaScript basics",
-    color: "text-blue-500",
-    bgColor: "bg-blue-100 dark:bg-blue-900/30",
-    skills: ["HTML5", "CSS3", "JavaScript ES6+"],
-    timeline: "2-3 months",
-    projects: ["Personal Portfolio", "Landing Pages", "Interactive Forms"]
-  },
-  {
-    icon: Terminal,
-    title: "Developer Tools",
-    description: "Learn essential development tools and workflows",
-    color: "text-purple-500",
-    bgColor: "bg-purple-100 dark:bg-purple-900/30",
-    skills: ["Git", "VS Code", "Chrome DevTools"],
-    timeline: "1-2 months",
-    projects: ["Version Control", "Debugging", "Command Line"]
-  },
-  {
-    icon: Code,
-    title: "Frontend Frameworks",
-    description: "Build modern web applications",
-    color: "text-pink-500",
-    bgColor: "bg-pink-100 dark:bg-pink-900/30",
-    skills: ["React", "Vue", "Angular"],
-    timeline: "3-4 months",
-    projects: ["Todo App", "Weather Dashboard", "E-commerce Store"]
-  },
-  {
-    icon: Database,
-    title: "Backend Development",
-    description: "Create server-side applications",
-    color: "text-green-500",
-    bgColor: "bg-green-100 dark:bg-green-900/30",
-    skills: ["Node.js", "APIs", "Databases"],
-    timeline: "3-4 months",
-    projects: ["REST API", "User Authentication", "Database Design"]
-  },
-  {
-    icon: Globe,
-    title: "Deployment & DevOps",
-    description: "Launch your applications to the world",
-    color: "text-yellow-500",
-    bgColor: "bg-yellow-100 dark:bg-yellow-900/30",
-    skills: ["GitHub", "Vercel", "AWS"],
-    timeline: "1-2 months",
-    projects: ["CI/CD Pipeline", "Cloud Hosting", "Domain Setup"]
-  }
-];
+const iconComponents = {
+  Layout,
+  Terminal,
+  Code,
+  Database,
+  Globe
+};
 
 export default function Step1Vision({ onNext, onPrev }) {
   const [selectedStep, setSelectedStep] = useState(null);
@@ -79,17 +35,17 @@ export default function Step1Vision({ onNext, onPrev }) {
         <motion.h2 
           className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-transparent bg-clip-text animate-gradient bg-size-200"
         >
-          Your Web Dev Journey Starts Here
+          {roadmapData.title}
         </motion.h2>
         <motion.p 
           className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
         >
-          Follow our structured roadmap to become a professional web developer
+          {roadmapData.description}
         </motion.p>
       </motion.div>
 
       <div className="space-y-8 mb-12">
-        {roadmapSteps.map((step, index) => (
+        {roadmapData.roadmapSteps.map((step, index) => (
           <motion.div
             key={index}
             initial={{ x: -50, opacity: 0 }}
@@ -116,11 +72,11 @@ export default function Step1Vision({ onNext, onPrev }) {
               >
                 <div className="p-6 flex items-start space-x-4">
                   <div className={`p-3 rounded-xl ${step.bgColor}`}>
-                    <step.icon className={`w-6 h-6 ${step.color}`} />
+                    {React.createElement(iconComponents[step.icon], { className: `w-6 h-6 ${step.color}` })}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-xl font-semibold">{step.title}</h3>
+                      <h3 className="text-xl text-gray-600 font-semibold">{step.title}</h3>
                       <span className="text-sm text-gray-500 dark:text-gray-400">
                         {step.timeline}
                       </span>
@@ -147,7 +103,7 @@ export default function Step1Vision({ onNext, onPrev }) {
                   >
                     <div className="p-6 grid md:grid-cols-2 gap-6">
                       <div>
-                        <h4 className="font-medium mb-3 text-gray-900 dark:text-gray-100">
+                        <h4 className="font-medium mb-3">
                           Key Skills
                         </h4>
                         <div className="flex flex-wrap gap-2">
@@ -162,14 +118,14 @@ export default function Step1Vision({ onNext, onPrev }) {
                         </div>
                       </div>
                       <div>
-                        <h4 className="font-medium mb-3 text-gray-900 dark:text-gray-100">
+                        <h4 className="font-medium mb-3">
                           Practice Projects
                         </h4>
                         <ul className="space-y-2">
                           {step.projects.map((project, projectIndex) => (
                             <li key={projectIndex} className="flex items-center space-x-2">
                               <CheckCircle className={`w-4 h-4 ${step.color}`} />
-                              <span className="text-gray-600 dark:text-gray-300">{project}</span>
+                              <span className="text-gray-500 dark:text-gray-300">{project}</span>
                             </li>
                           ))}
                         </ul>

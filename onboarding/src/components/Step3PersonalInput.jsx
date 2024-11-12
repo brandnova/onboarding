@@ -4,8 +4,12 @@ import { ArrowLeft, ArrowRight, Send, Lightbulb, Code, BookOpen,
          Rocket, Check, Users, Heart, Star, Trophy, Target, 
          Calendar, Clock, Globe, Laptop, Book } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import personalInputData from '../data/personalInputData.json';
 
-// Enhanced Personal Input Component with more options
+const iconComponents = {
+  Laptop, Code, Globe, Book, Target, Clock, Check, Trophy, ArrowLeft, ArrowRight
+};
+
 export default function Step3PersonalInput({ onNext, onPrev }) {
   const [formData, setFormData] = useState({
     motivation: '',
@@ -18,30 +22,9 @@ export default function Step3PersonalInput({ onNext, onPrev }) {
   const [currentSection, setCurrentSection] = useState(0);
   const [showFeedback, setShowFeedback] = useState(false);
 
-  const techStacks = [
-    { id: 'frontend', label: 'Frontend Development', icon: Laptop },
-    { id: 'backend', label: 'Backend Development', icon: Code },
-    { id: 'fullstack', label: 'Full Stack Development', icon: Globe },
-  ];
-
-  const learningStyles = [
-    { id: 'visual', label: 'Visual Learning', icon: Book },
-    { id: 'practical', label: 'Learning by Doing', icon: Laptop },
-    { id: 'mixed', label: 'Mixed Approach', icon: Target },
-  ];
-
-  const goalOptions = [
-    'Career Change',
-    'Skill Enhancement',
-    'Side Projects',
-    'Freelancing',
-    'Personal Growth'
-  ];
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowFeedback(true);
-    triggerConfetti();
     setTimeout(() => {
       setShowFeedback(false);
       onNext();
@@ -78,7 +61,7 @@ export default function Step3PersonalInput({ onNext, onPrev }) {
 
   const sections = [
     {
-      title: "Your Story",
+      title: personalInputData.sections[0].title,
       component: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -94,14 +77,14 @@ export default function Step3PersonalInput({ onNext, onPrev }) {
               border-gray-200 dark:border-gray-700
               bg-white dark:bg-gray-800 text-gray-900 dark:text-white
               focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="What inspired you to start coding?"
+            placeholder={personalInputData.sections[0].placeholder}
             required
           />
         </motion.div>
       )
     },
     {
-      title: "Experience & Time",
+      title: personalInputData.sections[1].title,
       component: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -116,9 +99,9 @@ export default function Step3PersonalInput({ onNext, onPrev }) {
               className="w-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700
                 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             >
-              <option value="beginner">Complete Beginner</option>
-              <option value="some">Some Programming Experience</option>
-              <option value="intermediate">Intermediate Developer</option>
+              {personalInputData.sections[1].experienceOptions.map(option => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
             </select>
             
             <div className="flex items-center space-x-4">
@@ -137,7 +120,7 @@ export default function Step3PersonalInput({ onNext, onPrev }) {
       )
     },
     {
-      title: "Learning Preferences",
+      title: personalInputData.sections[2].title,
       component: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -147,7 +130,7 @@ export default function Step3PersonalInput({ onNext, onPrev }) {
         >
           <div className="grid gap-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {techStacks.map(({ id, label, icon: Icon }) => (
+              {personalInputData.techStacks.map(({ id, label, icon }) => (
                 <motion.button
                   key={id}
                   whileHover={{ scale: 1.02 }}
@@ -164,7 +147,7 @@ export default function Step3PersonalInput({ onNext, onPrev }) {
                       : 'border-gray-200 dark:border-gray-700'}
                     flex flex-col items-center space-y-2`}
                 >
-                  <Icon className="w-6 h-6 text-blue-500" />
+                  {React.createElement(iconComponents[icon], { className: "w-6 h-6 text-blue-500" })}
                   <span className="text-sm font-medium">{label}</span>
                 </motion.button>
               ))}
@@ -174,7 +157,7 @@ export default function Step3PersonalInput({ onNext, onPrev }) {
       )
     },
     {
-      title: "Your Goals",
+      title: personalInputData.sections[3].title,
       component: (
         <motion.div
           initial={{ opacity: 0 }}
@@ -183,7 +166,7 @@ export default function Step3PersonalInput({ onNext, onPrev }) {
           className="space-y-6"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {goalOptions.map((goal) => (
+            {personalInputData.goalOptions.map((goal) => (
               <motion.button
                 key={goal}
                 whileHover={{ scale: 1.02 }}
@@ -256,7 +239,7 @@ export default function Step3PersonalInput({ onNext, onPrev }) {
               else setCurrentSection(prev => prev - 1);
             }}
             className="flex items-center space-x-2 px-6 py-3 rounded-full
-              bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700
+              bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-black
               transition-colors duration-300"
             whileHover={{ x: -5 }}
           >

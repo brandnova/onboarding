@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import { Sun, Moon, Code, BookOpen, Sparkles, Star, User, Heart, CheckCircle, Menu, X } from 'lucide-react';
+import { Sun, Moon, Sparkles, BookOpen, Star, User, Heart, CheckCircle, Menu, X } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import LandingPage from './components/LandingPage';
 import Step1Vision from './components/Step1Vision';
@@ -31,6 +31,8 @@ export default function App() {
     const stepIndex = steps.findIndex(step => step.path === location.pathname);
     if (stepIndex !== -1) {
       setCurrentStep(stepIndex);
+      // Scroll to the top of the page when the active section changes
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [location]);
 
@@ -84,6 +86,8 @@ export default function App() {
     const prevIndex = Math.max(currentStep - 1, 0);
     setCurrentStep(prevIndex);
     navigate(steps[prevIndex].path);
+    // Scroll to the top of the page when the active section changes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const toggleTheme = () => {
@@ -107,7 +111,7 @@ export default function App() {
           <div className="flex justify-between items-center h-16">
             {/* Logo and Title */}
             <div className="flex items-center space-x-3">
-              <Code className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
+              <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
               <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
                 Web Dev Journey
               </h1>
@@ -157,26 +161,15 @@ export default function App() {
             isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
           } overflow-hidden`}>
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {steps.map((step, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    navigate(step.path);
-                    setIsMenuOpen(false);
-                  }}
-                  className={`w-full flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium ${
-                    currentStep === index
-                      ? 'bg-blue-600 text-white'
-                      : 'hover:bg-gray-200 dark:hover:bg-gray-700'
-                  }`}
-                >
-                  <step.icon className="h-5 w-5" />
-                  <span>{step.label}</span>
-                </button>
-              ))}
+              <div className="flex items-center space-x-3 px-3 py-2 rounded-md text-sm font-medium bg-blue-600 text-white">
+                {React.createElement(steps[currentStep].icon, {
+                  className: "h-5 w-5"
+                })}
+                <span>{steps[currentStep].label} ({currentStep + 1}/{steps.length})</span>
+              </div>
               <button
                 onClick={toggleTheme}
-                className="w-full flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="w-full flex items-center text-gray-500 space-x-2 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700"
               >
                 {isDarkMode ? (
                   <>
@@ -243,7 +236,7 @@ export default function App() {
           {/* Routes */}
           <div className="relative min-h-[600px]">
             <Routes>
-              <Route path="/" element={<LandingPage onStart={nextStep} />} />
+              <Route path="/" element={<LandingPage onStart={nextStep} isDarkMode={isDarkMode} toggleTheme={toggleTheme} />} />
               <Route path="/vision" element={<Step1Vision onNext={nextStep} onPrev={prevStep} />} />
               <Route path="/benefits" element={<Step2Benefits onNext={nextStep} onPrev={prevStep} />} />
               <Route path="/personal" element={<Step3PersonalInput onNext={nextStep} onPrev={prevStep} />} />

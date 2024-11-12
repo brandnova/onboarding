@@ -1,7 +1,8 @@
 // src/components/LandingPage.jsx
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Code, Rocket, Star, ChevronDown, Layout, Database, Globe } from 'lucide-react'
+import { Rocket, Star, ChevronDown, Layout, Database, Globe, Zap } from 'lucide-react'
+import landingPageData from '../data/landingPageData.json'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -25,12 +26,9 @@ const itemVariants = {
   }
 }
 
-const techStack = [
-  { name: 'HTML & CSS', icon: Layout, color: 'text-orange-500' },
-  { name: 'JavaScript', icon: Code, color: 'text-yellow-500' },
-  { name: 'React', icon: Globe, color: 'text-blue-500' },
-  { name: 'Backend', icon: Database, color: 'text-green-500' }
-]
+const iconComponents = {
+  Rocket, Star, Layout, Database, Globe, Zap
+}
 
 export default function LandingPage({ onStart }) {
   return (
@@ -47,21 +45,21 @@ export default function LandingPage({ onStart }) {
         className="mb-12 relative"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full blur-3xl opacity-20 animate-pulse" />
-        <Code className="w-24 h-24 text-blue-600 mx-auto mb-6 relative z-10" />
+        <img src="/vite.svg" alt="Vite logo" className="w-24 h-24 mx-auto mb-6 relative z-10" />
       </motion.div>
 
       <motion.h1 
         variants={itemVariants}
         className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-transparent bg-clip-text animate-gradient bg-size-200"
       >
-        Begin Your Web Dev Journey
+        {landingPageData.heroSection.title}
       </motion.h1>
 
       <motion.p 
         variants={itemVariants}
         className="text-xl md:text-2xl mb-12 text-gray-600 dark:text-gray-300"
       >
-        Transform your future through the power of code. Join thousands of successful developers who started right here.
+        {landingPageData.heroSection.description}
       </motion.p>
 
       {/* Tech Stack Section */}
@@ -69,13 +67,13 @@ export default function LandingPage({ onStart }) {
         variants={itemVariants}
         className="flex justify-center gap-8 mb-12 flex-wrap"
       >
-        {techStack.map((tech, index) => (
+        {landingPageData.techStack.map((tech, index) => (
           <motion.div
             key={index}
             whileHover={{ scale: 1.1 }}
             className="flex flex-col items-center"
           >
-            {React.createElement(tech.icon, {
+            {React.createElement(iconComponents[tech.icon], {
               className: `w-8 h-8 ${tech.color} mb-2`
             })}
             <span className="text-sm font-medium">{tech.name}</span>
@@ -87,26 +85,7 @@ export default function LandingPage({ onStart }) {
         variants={containerVariants}
         className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
       >
-        {[
-          {
-            icon: Code,
-            title: "Master Web Dev",
-            description: "Learn modern web development from the ground up",
-            gradient: "from-blue-500 to-blue-600"
-          },
-          {
-            icon: Rocket,
-            title: "Build & Deploy",
-            description: "Create and launch real-world projects",
-            gradient: "from-purple-500 to-purple-600"
-          },
-          {
-            icon: Star,
-            title: "Achieve More",
-            description: "Launch your career in tech",
-            gradient: "from-pink-500 to-pink-600"
-          }
-        ].map((item, index) => (
+        {landingPageData.features.map((item, index) => (
           <motion.div
             key={index}
             variants={itemVariants}
@@ -115,15 +94,22 @@ export default function LandingPage({ onStart }) {
               scale: 1.02,
               transition: { duration: 0.2 }
             }}
-            className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl relative overflow-hidden group"
+            className="bg-white bg-opacity-25 dark:bg-gray-800 dark:bg-opacity-50 p-8 rounded-2xl shadow-xl relative overflow-hidden group backdrop-blur-lg"
           >
-            <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+            <div
+              className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+            />
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            {React.createElement(item.icon, {
+            
+            {React.createElement(iconComponents[item.icon], {
               className: `w-12 h-12 mb-4 mx-auto text-transparent bg-gradient-to-r ${item.gradient} bg-clip-text`
             })}
-            <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-            <p className="text-gray-600 dark:text-gray-300">{item.description}</p>
+            
+            <h3 className="text-base dark:text-gray-100 text-xl font-semibold mb-2">
+              {item.title}
+            </h3>
+            
+            <p className="text-base dark:text-gray-300">{item.description}</p>
           </motion.div>
         ))}
       </motion.div>
@@ -138,7 +124,7 @@ export default function LandingPage({ onStart }) {
           onClick={onStart}
           className="group relative px-8 py-4 overflow-hidden rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl mb-8"
         >
-          <span className="relative z-10">Start Your Journey</span>
+          <span className="relative z-10">{landingPageData.ctaButton.text}</span>
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </motion.button>
 
@@ -160,12 +146,7 @@ export default function LandingPage({ onStart }) {
           variants={containerVariants}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
         >
-          {[
-            { label: "Active Students", value: "2,000+" },
-            { label: "Course Hours", value: "100+" },
-            { label: "Success Rate", value: "95%" },
-            { label: "Projects Built", value: "1,000+" }
-          ].map((stat, index) => (
+          {landingPageData.stats.map((stat, index) => (
             <motion.div
               key={index}
               variants={itemVariants}

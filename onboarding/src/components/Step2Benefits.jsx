@@ -2,63 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ArrowLeft, ArrowRight, Briefcase, Code, Brain, Globe, Users, DollarSign, Clock, Heart, TrendingUp, CheckCircle } from 'lucide-react';
+import benefitsData from '../data/benefitsData.json';
 
-const benefits = [
-  {
-    icon: Briefcase,
-    text: "Career Growth",
-    description: "Access to high-paying tech jobs and career advancement opportunities",
-    stats: ["Average salary: $85,000", "Job growth: 13% annually", "Remote work options"],
-    color: "text-blue-500",
-    gradient: "from-blue-500 to-blue-600",
-    highlight: "bg-blue-100 dark:bg-blue-900/30"
-  },
-  {
-    icon: Brain,
-    text: "Skill Development",
-    description: "Learn in-demand technical and problem-solving skills",
-    stats: ["Technical expertise", "Analytical thinking", "Continuous learning"],
-    color: "text-purple-500",
-    gradient: "from-purple-500 to-purple-600",
-    highlight: "bg-purple-100 dark:bg-purple-900/30"
-  },
-  {
-    icon: Globe,
-    text: "Global Impact",
-    description: "Create solutions that can reach millions of users worldwide",
-    stats: ["Global reach", "Social impact", "Innovation potential"],
-    color: "text-green-500",
-    gradient: "from-green-500 to-green-600",
-    highlight: "bg-green-100 dark:bg-green-900/30"
-  },
-  {
-    icon: Users,
-    text: "Community",
-    description: "Join a supportive community of developers and learners",
-    stats: ["Mentorship", "Networking", "Collaboration"],
-    color: "text-pink-500",
-    gradient: "from-pink-500 to-pink-600",
-    highlight: "bg-pink-100 dark:bg-pink-900/30"
-  },
-  {
-    icon: Clock,
-    text: "Flexibility",
-    description: "Work on your own schedule and from anywhere",
-    stats: ["Remote work", "Flexible hours", "Work-life balance"],
-    color: "text-yellow-500",
-    gradient: "from-yellow-500 to-yellow-600",
-    highlight: "bg-yellow-100 dark:bg-yellow-900/30"
-  },
-  {
-    icon: TrendingUp,
-    text: "Future-Proof Career",
-    description: "Stay ahead in the ever-evolving tech industry",
-    stats: ["Industry growth", "Tech innovation", "Career security"],
-    color: "text-indigo-500",
-    gradient: "from-indigo-500 to-indigo-600",
-    highlight: "bg-indigo-100 dark:bg-indigo-900/30"
-  }
-];
+const iconComponents = {
+  Briefcase, Code, Brain, Globe, Users, DollarSign, Clock, Heart, TrendingUp
+};
 
 export default function Step2Benefits({ onNext, onPrev }) {
   const [selectedBenefits, setSelectedBenefits] = useState([]);
@@ -92,12 +40,12 @@ export default function Step2Benefits({ onNext, onPrev }) {
         <motion.h2 
           className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 text-transparent bg-clip-text animate-gradient bg-size-200"
         >
-          Why Choose Web Development?
+          {benefitsData.title}
         </motion.h2>
         <motion.p 
           className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
         >
-          Discover the advantages of becoming a web developer
+          {benefitsData.description}
         </motion.p>
         {selectedBenefits.length > 0 && (
           <motion.div 
@@ -119,7 +67,7 @@ export default function Step2Benefits({ onNext, onPrev }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
       >
-        {benefits.map((benefit, index) => (
+        {benefitsData.benefits.map((benefit, index) => (
           <motion.div
             key={index}
             initial={{ scale: 0.9, opacity: 0 }}
@@ -145,14 +93,16 @@ export default function Step2Benefits({ onNext, onPrev }) {
                       ? 'bg-white/20'
                       : benefit.highlight
                   }`}>
-                    <benefit.icon className={`w-6 h-6 ${
-                      selectedBenefits.includes(benefit.text)
-                        ? 'text-white'
-                        : benefit.color
-                    }`} />
+                    {React.createElement(iconComponents[benefit.icon], {
+                      className: `w-6 h-6 ${
+                        selectedBenefits.includes(benefit.text)
+                          ? 'text-white'
+                          : benefit.color
+                      }`
+                    })}
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold">{benefit.text}</h3>
+                    <h3 className="text-lg text-gray-700 font-semibold">{benefit.text}</h3>
                     <p className={`text-sm ${
                       selectedBenefits.includes(benefit.text)
                         ? 'text-white/90'

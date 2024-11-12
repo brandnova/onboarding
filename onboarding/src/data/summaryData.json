@@ -1,0 +1,24 @@
+{
+    "title": "You're Ready to Begin Your Coding Journey!",
+    "description": "Congratulations on taking the first step towards learning web development. You're now ready to join our community and start your learning adventure!",
+    "steps": [
+      {
+        "icon": "Rocket",
+        "title": "Start Learning",
+        "description": "Access our curated tutorials and resources"
+      },
+      {
+        "icon": "Users",
+        "title": "Join Community",
+        "description": "Connect with fellow learners and mentors"
+      },
+      {
+        "icon": "Check",
+        "title": "Track Progress",
+        "description": "Set goals and monitor your advancement"
+      }
+    ],
+    "whatsappLink": "https://chat.whatsapp.com/Hnyda1NTxQjINHu3A8kvXE",
+    "whatsappButtonText": "Join the WhatsApp Group",
+    "backButtonText": "Back to Previous Step"
+  }

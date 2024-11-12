@@ -1,32 +1,47 @@
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+// src/components/Step4Motivation.jsx
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Quote } from 'lucide-react'
+import motivationData from '../data/motivationData.json'
 
-const motivationalFacts = [
-  "Every coder started as a beginner.",
-  "Coding isn't magic; it's a skill you can learn.",
-  "The best way to predict the future is to create it.",
-  "Your coding journey is unique. Embrace it!",
-  "Small steps every day lead to big achievements."
-]
+function FlipCard({ fact }) {
+  const [isFlipped, setIsFlipped] = useState(false)
 
-export default function Step4Motivation({ onNext, onPrev }) {
-  const [currentFact, setCurrentFact] = useState(0)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentFact((prev) => (prev + 1) % motivationalFacts.length)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [])
+  const handleFlip = () => setIsFlipped(!isFlipped)
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 100 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -100 }}
+      className="flip-card cursor-pointer w-full h-48"
+      onClick={handleFlip}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <motion.div
+        className="flip-card-inner w-full h-full"
+        initial={false}
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        <div className="flip-card-front absolute w-full h-full bg-blue-100 dark:bg-blue-900 rounded-lg shadow-lg flex items-center justify-center p-4">
+          <Quote className="w-12 h-12 text-blue-500" />
+        </div>
+        <div className="flip-card-back absolute w-full h-full bg-blue-600 dark:bg-blue-800 rounded-lg shadow-lg flex items-center justify-center p-4 [transform:rotateY(180deg)]">
+          <p className="text-lg font-semibold text-white text-center">{fact}</p>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
+
+export default function Step4Motivation({ onNext, onPrev }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.5 }}
-      className="text-center max-w-4xl mx-auto"
+      className="text-center max-w-6xl mx-auto px-4"
     >
       <motion.h2 
         className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text"
@@ -34,7 +49,7 @@ export default function Step4Motivation({ onNext, onPrev }) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
       >
-        Motivational Insights
+        {motivationData.title}
       </motion.h2>
       <motion.p 
         className="text-xl mb-12 text-gray-600 dark:text-gray-300"
@@ -42,26 +57,19 @@ export default function Step4Motivation({ onNext, onPrev }) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.5 }}
       >
-        Let these words of wisdom inspire your coding journey:
+        {motivationData.description}
       </motion.p>
-      <div className="relative h-48 mb-12">
-        <AnimatePresence mode="wait">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {motivationData.motivationalFacts.map((fact, index) => (
           <motion.div
-            key={currentFact}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.5 }}
-            className="absolute inset-0 flex items-center justify-center"
+            key={index}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
           >
-            <div className="bg-blue-100 dark:bg-blue-900 p-8 rounded-lg shadow-lg max-w-2xl">
-              <Quote className="w-8 h-8 text-blue-500 mb-4 mx-auto" />
-              <p className="text-2xl font-semibold text-blue-800 dark:text-blue-200">
-                {motivationalFacts[currentFact]}
-              </p>
-            </div>
+            <FlipCard fact={fact} />
           </motion.div>
-        </AnimatePresence>
+        ))}
       </div>
       <div className="flex justify-between items-center">
         <motion.button
