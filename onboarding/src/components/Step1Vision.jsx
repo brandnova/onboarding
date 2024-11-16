@@ -11,8 +11,8 @@ const roadmapSteps = [
     color: "text-blue-500",
     bgColor: "bg-blue-100 dark:bg-blue-900/30",
     skills: ["HTML5", "CSS3", "JavaScript ES6+"],
-    timeline: "2-3 Days",
-    projects: ["Personal Portfolio", "Landing Pages", "Interactive Forms"]
+    timeline: "3-5 Days",
+    projects: ["Landing Pages", "Responsive Web Design", "Interactive Forms"]
   },
   {
     icon: Terminal,
@@ -21,38 +21,38 @@ const roadmapSteps = [
     color: "text-purple-500",
     bgColor: "bg-purple-100 dark:bg-purple-900/30",
     skills: ["Git", "VS Code", "Chrome DevTools"],
-    timeline: "1-2 Days",
-    projects: ["Version Control", "Debugging", "Command Line"]
+    timeline: "2-3 Days",
+    projects: ["Text Editor", "Version Control", "Command Line"]
   },
   {
     icon: Code,
     title: "Frontend Frameworks",
-    description: "Build modern web applications",
+    description: "Build modern web UIs",
     color: "text-pink-500",
     bgColor: "bg-pink-100 dark:bg-pink-900/30",
-    skills: ["React", "Vue", "Angular"],
+    skills: ["Bootstrap", "Tailwind", "Vue.JS"],
     timeline: "3-4 Days",
-    projects: ["Todo App", "Weather Dashboard", "E-commerce Store"]
+    projects: ["Personal Portfolio", "User Dashboard", "Mini Blog"]
   },
   {
     icon: Database,
     title: "Backend Development",
-    description: "Create server-side applications",
+    description: "Create Dynamic server-side applications",
     color: "text-green-500",
     bgColor: "bg-green-100 dark:bg-green-900/30",
-    skills: ["Node.js", "APIs", "Databases"],
-    timeline: "3-4 Days",
-    projects: ["REST API", "User Authentication", "Database Design"]
+    skills: ["Django", "APIs", "Databases"],
+    timeline: "3-5 Days",
+    projects: ["REST API", "Dynamic Data Rendering", "Database Schematics"]
   },
   {
     icon: Globe,
-    title: "Deployment & DevOps",
+    title: "Deployment",
     description: "Launch your applications to the world",
     color: "text-yellow-500",
     bgColor: "bg-yellow-100 dark:bg-yellow-900/30",
-    skills: ["GitHub", "Vercel", "AWS"],
-    timeline: "1-2 Days",
-    projects: ["CI/CD Pipeline", "Cloud Hosting", "Domain Setup"]
+    skills: ["GitHub", "Vercel", "Web Hosting"],
+    timeline: "2-3 Days",
+    projects: ["GitHub Pages", "Cloud Hosting", "Domain Setup"]
   }
 ];
 
