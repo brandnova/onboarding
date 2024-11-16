@@ -1,7 +1,7 @@
 // src/components/LandingPage.jsx
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Rocket, Star, ChevronDown, Layout, Database, Globe, Zap } from 'lucide-react'
+import { Rocket, Star, ChevronDown, Layout, Database, Leaf, Zap } from 'lucide-react'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,8 +28,8 @@ const itemVariants = {
 const techStack = [
   { name: 'HTML & CSS', icon: Layout, color: 'text-orange-500' },
   { name: 'JavaScript', icon: Zap, color: 'text-yellow-500' },
-  { name: 'React', icon: Globe, color: 'text-blue-500' },
-  { name: 'Backend', icon: Database, color: 'text-green-500' }
+  { name: 'Django', icon: Leaf, color: 'text-green-500' },
+  { name: 'Backend', icon: Database, color: 'text-blue-500' }
 ]
 
 export default function LandingPage({ onStart }) {

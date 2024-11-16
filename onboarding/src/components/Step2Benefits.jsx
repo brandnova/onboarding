@@ -8,7 +8,7 @@ const benefits = [
     icon: Briefcase,
     text: "Career Growth",
     description: "Access to high-paying tech jobs and career advancement opportunities",
-    stats: ["Average salary: $85,000", "Job growth: 13% annually", "Remote work options"],
+    stats: ["Average salary: $95,000", "Job growth: 13% annually", "Remote work options"],
     color: "text-blue-500",
     gradient: "from-blue-500 to-blue-600",
     highlight: "bg-blue-100 dark:bg-blue-900/30"
