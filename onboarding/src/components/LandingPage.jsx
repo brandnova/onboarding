@@ -29,7 +29,7 @@ const techStack = [
   { name: 'HTML & CSS', icon: Layout, color: 'text-orange-500' },
   { name: 'JavaScript', icon: Zap, color: 'text-yellow-500' },
   { name: 'Django', icon: Leaf, color: 'text-green-500' },
-  { name: 'Backend', icon: Database, color: 'text-blue-500' }
+  { name: 'Database', icon: Database, color: 'text-blue-500' }
 ]
 
 export default function LandingPage({ onStart }) {
