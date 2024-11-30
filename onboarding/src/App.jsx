@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { Sun, Moon, Sparkles, BookOpen, Star, User, Heart, CheckCircle, Menu, X } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import TelegramFloatingButton from './components/TelegramFloatingButton'; 
 import LandingPage from './components/LandingPage';
 import Step1Vision from './components/Step1Vision';
 import Step2Benefits from './components/Step2Benefits';
@@ -101,6 +102,9 @@ export default function App() {
         ? 'dark bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white' 
         : 'bg-gradient-to-b from-white via-blue-50 to-white text-gray-900'
     }`}>
+      {/* Telegram Floating Button */}
+      <TelegramFloatingButton />
+
       {/* Smart Navigation Bar */}
       <nav className={`fixed w-full transition-all duration-300 transform ${
         hideNav ? '-translate-y-full' : 'translate-y-0'
@@ -113,7 +117,7 @@ export default function App() {
             <div className="flex items-center space-x-3">
               <img src="/vite.svg" alt="Vite logo" className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
               <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
-                Web Dev Journey
+                Web Innovators
               </h1>
             </div>
 

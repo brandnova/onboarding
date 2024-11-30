@@ -49,14 +49,14 @@ export default function Step5Summary({ onPrev }) {
         ))}
       </div>
       <motion.a
-        href="https://chat.whatsapp.com/Hnyda1NTxQjINHu3A8kvXE"
+        href="https://t.me/kumotechs"
         target="_blank"
         rel="noopener noreferrer"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl"
+        className="inline-block bg-[#0088cc] hover:bg-[#006daa] text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl"
       >
-        Join the WhatsApp Group
+        Join the Telegram Channel
       </motion.a>
       <div className="mt-12">
         <motion.button
